@@ -1,0 +1,17 @@
+name: CI/CD
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t areebaasif/python_auth_4 .
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push usama3650/python_auth_4
